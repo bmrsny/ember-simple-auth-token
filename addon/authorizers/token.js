@@ -79,7 +79,8 @@ export default Base.extend({
     @param {function} block
   */
   authorize(data = {}, block = () => {}) {
-    const token = data[this.tokenPropertyName];
+    // const token = data[this.tokenPropertyName];
+    const token = data.data.attributes[this.tokenPropertyName]
     const prefix = this.authorizationPrefix ? this.authorizationPrefix : '';
 
     if (this.get('session.isAuthenticated') && !Ember.isEmpty(token)) {
