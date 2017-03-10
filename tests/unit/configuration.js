@@ -49,3 +49,7 @@ test('refreshLeeway', assert => {
 test('tokenExpireName', assert => {
   assert.equal(Configuration.tokenExpireName, 'exp', 'defaults to "exp"');
 });
+
+test('dataWrapperPrefix', assert => {
+  assert.equal(Configuration.dataWrapperPrefix, '', 'defaults to ""');
+});

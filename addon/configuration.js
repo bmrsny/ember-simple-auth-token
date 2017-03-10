@@ -149,6 +149,17 @@ export default {
   headers: defaults.headers,
 
   /**
+    Custom headers to be added on request.
+
+    @property dataWrapperPrefix
+    @readonly
+    @static
+    @type String
+    @default ''
+  */
+  dataWrapperPrefix: defaults.dataWrapperPrefix,
+
+  /**
     @method load
     @private
   */
