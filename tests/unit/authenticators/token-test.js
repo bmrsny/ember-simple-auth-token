@@ -63,6 +63,14 @@ test('assigns custom headers from the configuration object', assert => {
   Configuration.load({}, {});
 });
 
+test('assigns dataPrefixWrapper from the configuration object', assert => {
+  Configuration.dataWrapperPrefix = 'dataWrapperPrefix';
+
+  assert.equal(Token.create().dataWrapperPrefix, 'dataWrapperPrefix');
+
+  Configuration.load({}, {});
+});
+
 test('#restore resolves with the correct data', assert => {
   const properties = {
     token: 'secret token!'
@@ -124,6 +132,33 @@ test('#authenticate sends an AJAX request to the sign in endpoint', assert => {
       url: '/api/token-auth/',
       method: 'POST',
       data: '{"password":"password","username":"username"}',
+      dataType: 'json',
+      contentType: 'application/json',
+      headers: {}
+    });
+  });
+});
+
+test('#authenticate sends an AJAX request to the sign in endpoint with dataWrapperPrefix', assert => {
+
+  const credentials = {
+    identification: 'username',
+    password: 'password'
+  };
+
+  Configuration.dataWrapperPrefix = 'data';
+
+  App.authenticator = Token.create();
+  App.authenticator.authenticate(credentials);
+
+  Ember.run(() => {
+    var args = Ember.$.ajax.getCall(0).args[0];
+    delete args.beforeSend;
+
+    assert.deepEqual(args, {
+      url: '/api/token-auth/',
+      method: 'POST',
+      data: '{"data":{"password":"password","username":"username"}}',
       dataType: 'json',
       contentType: 'application/json',
       headers: {}
@@ -236,3 +271,4 @@ test('#invalidate returns a resolving promise', assert => {
     assert.ok(true);
   });
 });
+

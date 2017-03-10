@@ -76,6 +76,18 @@ export default Base.extend({
   */
   headers: {},
 
+    /**
+    The property that stores custom headers that will be sent on every request.
+
+    This value can be configured via
+    [`SimpleAuth.Configuration.Token#headers`](#SimpleAuth-Configuration-Token-headers).
+
+    @property headers
+    @type Object
+    @default {}
+  */
+  dataWrapperPrefix: '',
+
   /**
     @method init
     @private
@@ -86,6 +98,7 @@ export default Base.extend({
     this.passwordField = Configuration.passwordField;
     this.tokenPropertyName = Configuration.tokenPropertyName;
     this.headers = Configuration.headers;
+    this.dataWrapperPrefix = Configuration.dataWrapperPrefix;
   },
 
   /**
@@ -144,12 +157,20 @@ export default Base.extend({
     @return {object} An object with properties for authentication.
   */
   getAuthenticateData(credentials) {
-    const authentication = {
-      [this.passwordField]: credentials.password,
-      [this.identificationField]: credentials.identification
-    };
 
-    return authentication;
+    if (this.dataWrapperPrefix === '' || this.dataWrapperPrefix === undefined) {
+      return {
+        [this.passwordField]: credentials.password,
+        [this.identificationField]: credentials.identification
+      };
+    }
+    else {
+      return { [this.dataWrapperPrefix]: {
+          [this.passwordField]: credentials.password,
+          [this.identificationField]: credentials.identification
+        }
+      };      
+    }
   },
 
   /**

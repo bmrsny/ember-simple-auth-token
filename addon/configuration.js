@@ -11,7 +11,8 @@ var defaults = {
   tokenExpireName: 'exp',
   authorizationPrefix: 'Bearer ',
   authorizationHeaderName: 'Authorization',
-  headers: {}
+  headers: {},
+  dataWrapperPrefix: ''
 };
 
 /**
