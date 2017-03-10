@@ -159,7 +159,6 @@ export default Base.extend({
   getAuthenticateData(credentials) {
 
     if (this.dataWrapperPrefix === '' || this.dataWrapperPrefix === undefined) {
-      console.log(this.dataWrapperPrefix);
       return {
         [this.passwordField]: credentials.password,
         [this.identificationField]: credentials.identification

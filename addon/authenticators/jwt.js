@@ -59,6 +59,18 @@ export default TokenAuthenticator.extend({
   tokenExpireName: 'exp',
 
   /**
+    The property that stores the data wrapper prefix that will be sent on every request.
+
+    This value can be configured via
+    [`SimpleAuth.Configuration.Token#headers`](#SimpleAuth-Configuration-Token-headers).
+
+    @property headers
+    @type Object
+    @default {}
+  */
+  dataWrapperPrefix: '',
+
+  /**
     @method init
     @private
   */
@@ -72,6 +84,7 @@ export default TokenAuthenticator.extend({
     this.refreshLeeway = Configuration.refreshLeeway;
     this.tokenExpireName = Configuration.tokenExpireName;
     this.headers = Configuration.headers;
+    this.dataWrapperPrefix = Configuration.dataWrapperPrefix;    
   },
 
   /**
