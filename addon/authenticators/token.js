@@ -77,7 +77,7 @@ export default Base.extend({
   headers: {},
 
     /**
-    The property that stores custom headers that will be sent on every request.
+    The property that stores the data wrapper prefix that will be sent on every request.
 
     This value can be configured via
     [`SimpleAuth.Configuration.Token#headers`](#SimpleAuth-Configuration-Token-headers).
@@ -159,6 +159,7 @@ export default Base.extend({
   getAuthenticateData(credentials) {
 
     if (this.dataWrapperPrefix === '' || this.dataWrapperPrefix === undefined) {
+      console.log(this.dataWrapperPrefix);
       return {
         [this.passwordField]: credentials.password,
         [this.identificationField]: credentials.identification
